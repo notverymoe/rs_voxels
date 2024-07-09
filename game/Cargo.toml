@@ -1,0 +1,11 @@
+[package]
+name = "nvm_game"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+glam = { workspace = true }
+bytemuck = { workspace = true }
+
+[lints]
+workspace = true
