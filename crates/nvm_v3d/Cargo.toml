@@ -1,0 +1,12 @@
+[package]
+name = "nvm_v3d"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+glam = { workspace = true }
+
+dot_vox = "5.1.1"
+
+[lints]
+workspace = true

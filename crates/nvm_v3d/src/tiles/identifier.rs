@@ -5,4 +5,5 @@ pub struct TileIdentifier(u16);
 
 impl TileIdentifier {
     pub const DEFAULT: TileIdentifier = TileIdentifier(0);
+    pub const ONE: TileIdentifier = TileIdentifier(1);
 }

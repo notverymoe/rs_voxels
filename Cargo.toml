@@ -2,11 +2,19 @@
 resolver="2"
 members = [
     "game/",
+    "crates/nvm_app",
+    "crates/nvm_v3d",
 ]
 
 [workspace.dependencies]
-glam = { version = "0.28.0", features = ["bytemuck"] }
-bytemuck = "1.16.1"
+glam       = { version = "0.28.0", features = ["bytemuck"] }
+bytemuck   = { version = "1.16.1", features = [ "derive" ] }
+wgpu       = "0.20.1"
+winit      = "0.30.3"
+env_logger = "0.11.3"
+pollster   = "0.3.0"
+nvm_v3d    = { path = "crates/nvm_v3d" }
+nvm_app    = { path = "crates/nvm_app" }
 
 [workspace.lints.clippy]
 all                            = { level = "warn", priority = -1 }

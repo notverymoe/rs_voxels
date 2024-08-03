@@ -10,7 +10,7 @@ pub fn mesh_chunk_plane(vis: &impl FaceVisibilityProvider, chunk: [usize; 3], fa
     assert!(dest.len() >= 8*8);
 
     let visibility = vis.get_face_visibility_plane(chunk, face, layer).to_raw();
-    let offset = chunk.map(|v| (v*8) as u8);
+    let offset = face.axis().to_local_usize(chunk).map(|v| (v*8) as u8);
 
     let mut size = 0;
     let mut i = visibility.trailing_zeros();
@@ -21,18 +21,20 @@ pub fn mesh_chunk_plane(vis: &impl FaceVisibilityProvider, chunk: [usize; 3], fa
             let k = i+j;
             let x = k & 0x07;
             let y = k >> 3;
-            let pos  = face.axis().to_world([x, y, layer]);
             dest[size] = encode_vertex(
-                offset[0] + pos[0] as u8, 
-                offset[1] + pos[1] as u8, 
-                offset[2] + pos[2] as u8,
-                face, 
-                0
+                offset[0] +     x as u8, 
+                offset[1] +     y as u8, 
+                offset[2] + layer as u8,
+                face
             );
             size += 1;
         }
         i += run;
-        i += (visibility >> i).trailing_zeros();
+        if let Some(run) = visibility.checked_shr(i) {
+            i += run.trailing_zeros();
+        } else {
+            break;
+        }
     }
 
     size

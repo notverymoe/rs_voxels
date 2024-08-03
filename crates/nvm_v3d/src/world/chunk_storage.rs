@@ -3,7 +3,7 @@
 use crate::{meshing::{BitPlane, VisAxis, VisFace, FaceVisibilityProvider}, tiles::TileIdentifier};
 use super::PosBlock;
 
-pub const CHUNK_COORD_BITS:  usize = 6;
+pub const CHUNK_COORD_BITS:  usize = 5;
 pub const CHUNK_SIZE:        usize = 1 << CHUNK_COORD_BITS;
 pub const CHUNK_LENGTH:      usize = CHUNK_SIZE*CHUNK_SIZE*CHUNK_SIZE;
 pub const CHUNK_LENGTH_MASK: usize = CHUNK_LENGTH - 1;
@@ -55,14 +55,12 @@ impl ChunkStorage {
     }
 
     const fn get_vis_idx_and_layer(pos: PosBlock, axis: VisAxis) -> [usize; 3] {
-        let [x, y, layer] = axis.to_local([pos.x as u32, pos.y as u32, pos.z as u32]);
-        let x = x as usize;
-        let y = y as usize;
+        let [x, y, layer] = axis.to_local_usize([pos.x as usize, pos.y as usize, pos.z as usize]);
         let start = (axis as usize) * CHUNK_VIS_SIZE*CHUNK_VIS_SIZE*CHUNK_SIZE;
         let off_xy = (x >> 3)*CHUNK_SIZE + (y >> 3)*CHUNK_VIS_SIZE*CHUNK_SIZE;
         [
             (x & 0x07) | ((y & 0x07) << 3), 
-            layer as usize, 
+            layer, 
             start + off_xy
         ]
     }

@@ -4,8 +4,16 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-glam = { workspace = true }
-bytemuck = { workspace = true }
+glam       = { workspace = true }
+bytemuck   = { workspace = true }
+wgpu       = { workspace = true }
+winit      = { workspace = true }
+env_logger = { workspace = true }
+nvm_v3d    = { workspace = true }
+nvm_app    = { workspace = true }
+
+dot_vox = "5.1.1"
+image = "0.25.2"
 
 [lints]
 workspace = true

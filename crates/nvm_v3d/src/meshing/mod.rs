@@ -20,7 +20,7 @@ pub enum VisAxis {
 impl VisAxis {
 
     #[must_use]
-    pub const fn to_local(self, world: [u32; 3]) -> [u32; 3] {
+    pub const fn to_local_u32(self, world: [u32; 3]) -> [u32; 3] {
         match self {
             VisAxis::X => [world[2], world[1], world[0]],
             VisAxis::Y => [world[0], world[2], world[1]],
@@ -29,7 +29,25 @@ impl VisAxis {
     }
 
     #[must_use]
-    pub const fn to_world(self, local: [u32; 3]) -> [u32; 3] {
+    pub const fn to_local_usize(self, world: [usize; 3]) -> [usize; 3] {
+        match self {
+            VisAxis::X => [world[2], world[1], world[0]],
+            VisAxis::Y => [world[0], world[2], world[1]],
+            VisAxis::Z => world,
+        }
+    }
+
+    #[must_use]
+    pub const fn to_world_u32(self, local: [u32; 3]) -> [u32; 3] {
+        match self {
+            VisAxis::X => [local[2], local[1], local[0]],
+            VisAxis::Y => [local[0], local[2], local[1]],
+            VisAxis::Z => local,
+        }
+    }
+
+    #[must_use]
+    pub const fn to_world_usize(self, local: [usize; 3]) -> [usize; 3] {
         match self {
             VisAxis::X => [local[2], local[1], local[0]],
             VisAxis::Y => [local[0], local[2], local[1]],

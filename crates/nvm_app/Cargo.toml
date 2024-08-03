@@ -1,0 +1,12 @@
+[package]
+name = "nvm_app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wgpu     = { workspace = true }
+winit    = { workspace = true }
+pollster = { workspace = true }
+
+[lints]
+workspace = true

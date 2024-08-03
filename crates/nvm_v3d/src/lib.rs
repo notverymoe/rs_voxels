@@ -6,3 +6,4 @@
 pub mod world;
 pub mod meshing;
 pub mod tiles;
+pub mod lighting;
